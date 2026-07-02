@@ -36,6 +36,12 @@ bash ventures/developer-context-compressor-kit/scripts/packet_bundle.sh /path/to
   > /tmp/dcck-packet.md
 ```
 
+Print just the LLM handoff section for the current repo:
+
+```bash
+make handoff
+```
+
 ## Output Shape
 
 The bundle emits three markdown sections to stdout in this order:
@@ -71,3 +77,4 @@ These are fixed reference layouts for the v0 bundle. They are not runtime inputs
 
 - `LICENSE` ships the planned `MIT` terms for the first public repo shape.
 - `REPO-CHECKLIST.md` is the publish-safe preflight list for the first `SPA-001` GitHub push.
+- `make handoff` exposes the middle LLM-oriented section directly so the public repo now matches the one-command affordances already available for `bundle`, `map`, and `risk`.
