@@ -15,24 +15,36 @@ Local-first shell bundle for turning a repository into three bounded markdown ar
 
 ## Quick Start
 
-Run the full packet on a repo:
+After cloning the public repo, enter it once:
 
 ```bash
-bash ventures/developer-context-compressor-kit/scripts/packet_bundle.sh /path/to/repo
+cd developer-context-compressor-kit
 ```
 
-Run the packet with explicit target paths for the change-risk section:
+Run the full packet on the cloned kit itself:
 
 ```bash
-bash ventures/developer-context-compressor-kit/scripts/packet_bundle.sh \
+make bundle
+```
+
+Run the packet on another repo:
+
+```bash
+./scripts/packet_bundle.sh /path/to/repo
+```
+
+Run the packet on another repo with explicit target paths for the change-risk section:
+
+```bash
+./scripts/packet_bundle.sh \
   /path/to/repo \
   path/to/file1 path/to/file2
 ```
 
-Write the three-section packet to a file:
+Write the three-section packet for another repo to a file:
 
 ```bash
-bash ventures/developer-context-compressor-kit/scripts/packet_bundle.sh /path/to/repo \
+./scripts/packet_bundle.sh /path/to/repo \
   > /tmp/dcck-packet.md
 ```
 
