@@ -47,6 +47,9 @@ Run the packet on another repo with explicit target paths for the change-risk se
   path/to/file1 path/to/file2
 ```
 
+Use that `packet_bundle.sh /path/to/repo <target...>` form when the repo you want to inspect
+is not the DCCK clone itself.
+
 Concrete Python example from an outside repo:
 
 ```bash
@@ -73,6 +76,10 @@ Run a targeted change-risk pass for specific files while staying inside the clon
 ```bash
 make risk-target TARGETS="README.md scripts/change_risk.sh"
 ```
+
+`make risk-target` is repo-local. It scopes the change-risk output to files inside the current
+cloned DCCK repo; for another repo, use `./scripts/packet_bundle.sh /path/to/repo <target...>`
+instead.
 
 ## Output Shape
 
