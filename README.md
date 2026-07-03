@@ -58,6 +58,14 @@ Concrete Python example from an outside repo:
   src/requests/sessions.py tests/test_requests.py
 ```
 
+Concrete Rust example from an outside repo:
+
+```bash
+./scripts/packet_bundle.sh \
+  /tmp/dcck-ripgrep-targeted \
+  crates/core/flags/hiargs.rs tests/feature.rs
+```
+
 Write the three-section packet for another repo to a file:
 
 ```bash
