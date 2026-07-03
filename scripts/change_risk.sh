@@ -18,6 +18,8 @@ if [ ! -d "$repo_root" ]; then
   exit 1
 fi
 
+repo_root="$(cd "$repo_root" && pwd)"
+
 repo_name="$(basename "$repo_root")"
 scanned_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 targets=("$@")
