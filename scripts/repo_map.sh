@@ -47,8 +47,46 @@ hotspots() {
   local root="$1"
   local name
   local emitted=0
-  for name in program-docs ventures scripts docs memory logs config tools; do
+  local source_first=0
+  local package_like=""
+  for name in src lib app crates pkg; do
     if [ -d "$root/$name" ]; then
+      source_first=1
+      break
+    fi
+  done
+  if [ "$source_first" -eq 1 ]; then
+    for name in src lib app crates pkg tests test __tests__ spec specs docs; do
+      if [ -d "$root/$name" ]; then
+        echo "- $name"
+        emitted=1
+      fi
+    done
+  else
+    while IFS= read -r package_like; do
+      [ -n "$package_like" ] || continue
+      echo "- $package_like"
+      emitted=1
+    done < <(
+      find "$root" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+        | sort \
+        | sed "s#^$root/##" \
+        | grep -Ev '^[.]|^(docs|doc|tests|test|__tests__|spec|specs|misc|examples|example|vendor|dist|build|coverage|tmp|backups|program-docs|ventures|scripts|memory|logs|config|tools)$' \
+        | while IFS= read -r topdir; do
+            if find "$root/$topdir" -maxdepth 2 -type f \( -name '*.py' -o -name '*.rs' -o -name '*.js' -o -name '*.ts' -o -name '*.tsx' -o -name '*.jsx' -o -name '*.go' -o -name '*.java' -o -name '*.rb' -o -name '*.php' -o -name '*.sh' \) 2>/dev/null | grep -q .; then
+              echo "$topdir"
+            fi
+          done
+    )
+    for name in tests test __tests__ spec specs docs; do
+      if [ -d "$root/$name" ]; then
+        echo "- $name"
+        emitted=1
+      fi
+    done
+  fi
+  for name in program-docs ventures scripts docs memory logs config tools; do
+    if [ -d "$root/$name" ] && ! { [ "$name" = "docs" ] && [ "$source_first" -eq 1 -o "$emitted" -eq 1 ]; }; then
       echo "- $name"
       emitted=1
     fi

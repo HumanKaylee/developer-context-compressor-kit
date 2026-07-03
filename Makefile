@@ -1,12 +1,13 @@
 SHELL := /bin/bash
 
-.PHONY: help bundle map handoff risk
+.PHONY: help bundle map handoff risk check
 
 help:
 	@printf '%s\n' 'make bundle  # run the full DCCK packet bundle on this repo'
 	@printf '%s\n' 'make map     # print the shallow repo map'
 	@printf '%s\n' 'make handoff # print the LLM handoff brief'
 	@printf '%s\n' 'make risk    # print the repo-level change-risk brief'
+	@printf '%s\n' 'make check   # run hotspot regression checks on the control samples'
 
 bundle:
 	@./scripts/packet_bundle.sh .
@@ -19,3 +20,6 @@ handoff:
 
 risk:
 	@./scripts/change_risk.sh .
+
+check:
+	@./scripts/hotspot_regression_check.sh

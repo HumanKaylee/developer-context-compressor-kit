@@ -89,5 +89,5 @@ These are fixed reference layouts for the v0 bundle. They are not runtime inputs
 
 - `LICENSE` ships the planned `MIT` terms for the first public repo shape.
 - `REPO-CHECKLIST.md` is the publish-safe preflight list for the first `SPA-001` GitHub push.
-- `make handoff` exposes the middle LLM-oriented section directly so the public repo now matches the one-command affordances already available for `bundle`, `map`, and `risk`.
-- `make check` is intentionally not shipped in the public repo yet because the current regression guardrail still depends on Jane-local control samples rather than repo-local fixtures.
+- `make handoff` exposes the middle LLM-oriented section directly so the public repo has the same one-command affordance as `bundle`, `map`, and `risk`.
+- `make check` now runs against the repo-local fixture repos under `fixtures/`, so the regression guardrail no longer depends on Jane-local `/tmp` clones or the venture workspace path.

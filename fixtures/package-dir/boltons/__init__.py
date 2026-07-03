@@ -1,0 +1,1 @@
+"""Package-dir hotspot fixture."""
