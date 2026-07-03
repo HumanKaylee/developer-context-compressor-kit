@@ -68,6 +68,12 @@ Print just the LLM handoff section for the current repo:
 make handoff
 ```
 
+Run a targeted change-risk pass for specific files while staying inside the cloned repo:
+
+```bash
+make risk-target TARGETS="README.md scripts/change_risk.sh"
+```
+
 ## Output Shape
 
 The bundle emits three markdown sections to stdout in this order:
