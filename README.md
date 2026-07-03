@@ -47,6 +47,14 @@ Run the packet on another repo with explicit target paths for the change-risk se
   path/to/file1 path/to/file2
 ```
 
+Concrete Python example from an outside repo:
+
+```bash
+./scripts/packet_bundle.sh \
+  /tmp/dcck-requests-targeted \
+  src/requests/sessions.py tests/test_requests.py
+```
+
 Write the three-section packet for another repo to a file:
 
 ```bash
