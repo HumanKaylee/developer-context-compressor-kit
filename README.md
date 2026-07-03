@@ -27,6 +27,12 @@ Run the full packet on the cloned kit itself:
 make bundle
 ```
 
+Verify the shipped fixture-backed regression checks before using the kit on another repo:
+
+```bash
+make check
+```
+
 Run the packet on another repo:
 
 ```bash
