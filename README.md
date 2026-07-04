@@ -36,40 +36,40 @@ make check
 Run the packet on another repo:
 
 ```bash
-./scripts/packet_bundle.sh /path/to/repo
+make bundle-target REPO=/path/to/repo
 ```
 
 Run the packet on another repo with explicit target paths for the change-risk section:
 
 ```bash
-./scripts/packet_bundle.sh \
-  /path/to/repo \
-  path/to/file1 path/to/file2
+make bundle-target \
+  REPO=/path/to/repo \
+  TARGETS="path/to/file1 path/to/file2"
 ```
 
-Use that `packet_bundle.sh /path/to/repo <target...>` form when the repo you want to inspect
-is not the DCCK clone itself.
+`make bundle-target` is a repo-local shorthand for `./scripts/packet_bundle.sh /path/to/repo <target...>`.
+Use it when the repo you want to inspect is not the DCCK clone itself.
 
 Concrete Python example from an outside repo:
 
 ```bash
-./scripts/packet_bundle.sh \
-  /tmp/dcck-requests-targeted \
-  src/requests/sessions.py tests/test_requests.py
+make bundle-target \
+  REPO=/tmp/dcck-requests-targeted \
+  TARGETS="src/requests/sessions.py tests/test_requests.py"
 ```
 
 Concrete Rust example from an outside repo:
 
 ```bash
-./scripts/packet_bundle.sh \
-  /tmp/dcck-ripgrep-targeted \
-  crates/core/flags/hiargs.rs tests/feature.rs
+make bundle-target \
+  REPO=/tmp/dcck-ripgrep-targeted \
+  TARGETS="crates/core/flags/hiargs.rs tests/feature.rs"
 ```
 
 Write the three-section packet for another repo to a file:
 
 ```bash
-./scripts/packet_bundle.sh /path/to/repo \
+make bundle-target REPO=/path/to/repo \
   > /tmp/dcck-packet.md
 ```
 
@@ -86,7 +86,7 @@ make risk-target TARGETS="README.md scripts/change_risk.sh"
 ```
 
 `make risk-target` is repo-local. It scopes the change-risk output to files inside the current
-cloned DCCK repo; for another repo, use `./scripts/packet_bundle.sh /path/to/repo <target...>`
+cloned DCCK repo; for another repo, use `make bundle-target REPO=/path/to/repo TARGETS="..."`
 instead.
 
 ## Output Shape
@@ -125,4 +125,5 @@ These are fixed reference layouts for the v0 bundle. They are not runtime inputs
 - `LICENSE` ships the planned `MIT` terms for the first public repo shape.
 - `REPO-CHECKLIST.md` is the publish-safe preflight list for the first `SPA-001` GitHub push.
 - `make handoff` exposes the middle LLM-oriented section directly so the public repo has the same one-command affordance as `bundle`, `map`, and `risk`.
+- `make bundle-target REPO=/path/to/repo [TARGETS="..."]` exposes the outside-repo packet flow behind the same repo-local `make` affordance as the rest of the kit.
 - `make check` now runs against the repo-local fixture repos under `fixtures/`, so the regression guardrail no longer depends on Jane-local `/tmp` clones or the venture workspace path.

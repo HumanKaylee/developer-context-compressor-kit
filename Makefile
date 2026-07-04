@@ -1,9 +1,10 @@
 SHELL := /bin/bash
 
-.PHONY: help bundle map handoff risk risk-target check
+.PHONY: help bundle bundle-target map handoff risk risk-target check
 
 help:
 	@printf '%s\n' 'make bundle  # run the full DCCK packet bundle on this repo'
+	@printf '%s\n' 'make bundle-target REPO=/path/to/repo [TARGETS="path1 path2"]  # run the full packet on another repo'
 	@printf '%s\n' 'make map     # print the shallow repo map'
 	@printf '%s\n' 'make handoff # print the LLM handoff brief'
 	@printf '%s\n' 'make risk    # print the repo-level change-risk brief'
@@ -12,6 +13,10 @@ help:
 
 bundle:
 	@./scripts/packet_bundle.sh .
+
+bundle-target:
+	@[ -n "$(REPO)" ] || { printf '%s\n' 'usage: make bundle-target REPO=/path/to/repo [TARGETS="path1 path2"]' >&2; exit 1; }
+	@./scripts/packet_bundle.sh "$(REPO)" $(TARGETS)
 
 map:
 	@./scripts/repo_map.sh .
