@@ -25,7 +25,7 @@ list_matches() {
   for pattern in "$@"; do
     while IFS= read -r line; do
       matches+=("${line#$root/}")
-    done < <(find "$root" -maxdepth 2 -type f -name "$pattern" 2>/dev/null | sort)
+    done < <(find "$root" -maxdepth 2 -type f -iname "$pattern" 2>/dev/null | sort)
   done
   if [ "${#matches[@]}" -eq 0 ]; then
     echo "- none found"
@@ -127,7 +127,7 @@ guess_commands() {
 unknowns() {
   local root="$1"
   local emitted=0
-  if [ ! -f "$root/README.md" ] && [ ! -f "$root/readme.md" ]; then
+  if ! find "$root" -maxdepth 1 -type f -iname 'readme.md' | grep -q .; then
     echo "- No top-level README found"
     emitted=1
   fi
