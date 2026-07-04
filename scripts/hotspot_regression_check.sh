@@ -30,6 +30,39 @@ assert_hotspot() {
   printf 'ok  %-60s -> %s\n' "$repo_root" "$actual"
 }
 
+assert_doc_detected() {
+  local repo_root="$1"
+  local expected_doc="$2"
+  local actual=""
+
+  if [ ! -d "$repo_root" ]; then
+    echo "missing control sample: $repo_root" >&2
+    exit 1
+  fi
+
+  actual="$("$script_dir/repo_map.sh" "$repo_root" \
+    | awk '
+        /^## Docs And Orientation Files$/ { in_docs=1; next }
+        in_docs && /^## / { exit }
+        in_docs && /^- / {
+          sub(/^- /, "", $0)
+          if ($0 !~ /^none found$/) {
+            print
+          }
+        }
+      ' \
+    | grep -Fx "$expected_doc" \
+    || true)"
+
+  if [ "$actual" != "$expected_doc" ]; then
+    echo "doc detection regression for $repo_root: expected $expected_doc in orientation files" >&2
+    exit 1
+  fi
+
+  printf 'ok  %-60s -> %s\n' "$repo_root" "$actual"
+}
+
 assert_hotspot "$fixtures_root/package-dir" "boltons"
 assert_hotspot "$fixtures_root/src-layout" "src"
 assert_hotspot "$fixtures_root/shell-first" "scripts"
+assert_doc_detected "$fixtures_root/mixed-case-readme" "Readme.md"
