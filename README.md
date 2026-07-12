@@ -1,10 +1,14 @@
 # Developer Context Compressor Kit
 
+Free local-first shell bundle that gives AI coding assistants (Claude Code, Cursor, Copilot Chat) the repo context they need before touching unfamiliar code: a project map, an LLM handoff brief, and a bounded change-risk packet — generated in one command, no accounts, no cloud calls.
+
 Local-first shell bundle for turning a repository into three bounded markdown artifacts:
 
 1. `project-map.md`
 2. `llm-handoff.md`
 3. `change-risk.md`
+
+> **Also hand-writing prompts for your AI assistant?** → **[Prompt Starter Pack Premium ($9)](https://flamewulfe.gumroad.com/l/prompt-starter-pack-premium/LAUNCH9?utm_source=github&utm_medium=readme&utm_campaign=developer-context-compressor-kit)** — 40 battle-tested templates for code review, debugging, architecture decisions, and AI-agent design, in the same "one command, no fuss" spirit as this kit.
 
 ## What It Does
 
@@ -127,3 +131,11 @@ These are fixed reference layouts for the v0 bundle. They are not runtime inputs
 - `make handoff` exposes the middle LLM-oriented section directly so the public repo has the same one-command affordance as `bundle`, `map`, and `risk`.
 - `make bundle-target REPO=/path/to/repo [TARGETS="..."]` exposes the outside-repo packet flow behind the same repo-local `make` affordance as the rest of the kit.
 - `make check` now runs against the repo-local fixture repos under `fixtures/`, so the regression guardrail no longer depends on Jane-local `/tmp` clones or the venture workspace path.
+
+---
+
+## More free tools by HumanKaylee
+
+- **[Prompt Starter Pack](https://github.com/HumanKaylee/prompt-starter-pack)** — 20 free battle-tested prompt templates for code review, debugging, and architecture decisions, plus a [40-template Premium Pack ($9)](https://flamewulfe.gumroad.com/l/prompt-starter-pack-premium/LAUNCH9?utm_source=github&utm_medium=readme&utm_campaign=developer-context-compressor-kit).
+- **[cron-doctor](https://github.com/HumanKaylee/cron-doctor)** — AI-powered cron expression generator + silent cron-job failure detector.
+- **[ai-context-gen](https://github.com/HumanKaylee/ai-context-gen)** — generates `IMPLEMENTATION_NOTES.md` context files so AI coding assistants understand your codebase in one shot.
